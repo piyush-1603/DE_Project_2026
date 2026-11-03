@@ -1,0 +1,11 @@
+{
+  "team_number": "T0002",
+  "group_lead": { "name": "Piyush Tharwani", "enrollment_no": "2501010335", "github": "piyush-1603" },
+  "members": [
+    { "name": "Anubhav Jaiswal", "enrollment_no": "2501010072", "github": "anubhavi-hoon" },
+    { "name": "Aadarsh", "enrollment_no": "2501010001", "github": "aadeeb08032006" },
+    { "name": "Prince Goswami", "enrollment_no": "2501010072", "github": "princegoswami5152R" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": "Macbook Air M4"
+}

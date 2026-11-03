@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Piyush Tharwani | 2501010335 | piyush-1603 |
+| Member 2 | Anubhav Jaiswal | 2501010072 | anubhavi-hoon |
+| Member 3 | Aadarsh | 2501010001 | aadeeb08032006 |
+| Member 4 | Prince Goswami | 2501010072 | princegoswami5152R |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0002 · **Section:** D · **Repository URL:** https://github.com/piyush-1603/DE_Project_2026
 
 ---
 
