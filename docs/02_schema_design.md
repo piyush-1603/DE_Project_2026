@@ -37,7 +37,7 @@ erDiagram
     menu_items ||--o{ order_items : "included in (1:N)"
 ```
 
-### Key Relationships & Cardinalities:
+## Key Relationships & Cardinalities:
 1. **Cities $\to$ Localities (1:N):** A city has multiple distinct operational localities/neighborhoods; each locality belongs to exactly one city.
 2. **Localities $\to$ Restaurants (1:N):** Each restaurant is physically situated in one locality with an assigned pincode.
 3. **Restaurants $\to$ Menu Items (1:N):** A restaurant defines its catalog of menu items; `ON DELETE CASCADE` ensures menu items are removed if a restaurant record is purged.
