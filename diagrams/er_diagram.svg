@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 950" width="100%" height="100%" style="background:#0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <style>
+      .table-card { fill: #1e293b; stroke: #334155; stroke-width: 2px; rx: 8px; }
+      .table-header { fill: #3b82f6; rx: 8px; }
+      .table-title { fill: #ffffff; font-weight: bold; font-size: 14px; text-anchor: middle; }
+      .col-pk { fill: #f59e0b; font-size: 11px; font-family: monospace; font-weight: bold; }
+      .col-fk { fill: #38bdf8; font-size: 11px; font-family: monospace; }
+      .col-regular { fill: #cbd5e1; font-size: 11px; font-family: monospace; }
+      .col-type { fill: #64748b; font-size: 10px; font-family: monospace; text-anchor: end; }
+      .line { stroke: #60a5fa; stroke-width: 2; fill: none; stroke-dasharray: 4,4; }
+      .line-solid { stroke: #94a3b8; stroke-width: 1.5; fill: none; }
+      .badge-pk { fill: #f59e0b; font-size: 9px; font-weight: bold; }
+      .badge-fk { fill: #38bdf8; font-size: 9px; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="50" y="20" width="1300" height="50" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="700" y="52" fill="#f8fafc" font-size="20" font-weight="bold" text-anchor="middle">ZOMATO RELATIONAL ENTITY RELATIONSHIP DIAGRAM (11 TABLES)</text>
+
+  <!-- Table: CITIES (Col 1, Row 1) -->
+  <g transform="translate(50, 100)">
+    <rect class="table-card" width="220" height="120"/>
+    <path d="M 0,0 H 220 V 30 H 0 Z" fill="#2563eb" rx="8"/>
+    <rect y="22" width="220" height="8" fill="#2563eb"/>
+    <text x="110" y="20" class="table-title">cities</text>
+    <text x="15" y="50" class="col-pk">PK city_id</text><text x="205" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-regular">   city_name</text><text x="205" y="72" class="col-type">VARCHAR(50)</text>
+    <text x="15" y="94" class="col-regular">   state</text><text x="205" y="94" class="col-type">VARCHAR(50)</text>
+  </g>
+
+  <!-- Table: LOCALITIES (Col 1, Row 2) -->
+  <g transform="translate(50, 270)">
+    <rect class="table-card" width="220" height="140"/>
+    <path d="M 0,0 H 220 V 30 H 0 Z" fill="#2563eb" rx="8"/>
+    <rect y="22" width="220" height="8" fill="#2563eb"/>
+    <text x="110" y="20" class="table-title">localities</text>
+    <text x="15" y="50" class="col-pk">PK locality_id</text><text x="205" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-fk">FK city_id</text><text x="205" y="72" class="col-type">INT</text>
+    <text x="15" y="94" class="col-regular">   locality_name</text><text x="205" y="94" class="col-type">VARCHAR(100)</text>
+    <text x="15" y="116" class="col-regular">   pincode</text><text x="205" y="116" class="col-type">VARCHAR(10)</text>
+  </g>
+
+  <!-- Table: RESTAURANTS (Col 1, Row 3) -->
+  <g transform="translate(50, 460)">
+    <rect class="table-card" width="220" height="280"/>
+    <path d="M 0,0 H 220 V 30 H 0 Z" fill="#2563eb" rx="8"/>
+    <rect y="22" width="220" height="8" fill="#2563eb"/>
+    <text x="110" y="20" class="table-title">restaurants</text>
+    <text x="15" y="50" class="col-pk">PK restaurant_id</text><text x="205" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-fk">FK locality_id</text><text x="205" y="72" class="col-type">INT</text>
+    <text x="15" y="94" class="col-regular">   name</text><text x="205" y="94" class="col-type">VARCHAR(150)</text>
+    <text x="15" y="116" class="col-regular">   cuisines</text><text x="205" y="116" class="col-type">TEXT[]</text>
+    <text x="15" y="138" class="col-regular">   avg_cost_for_two</text><text x="205" y="138" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="160" class="col-regular">   rating</text><text x="205" y="160" class="col-type">NUMERIC(2,1)</text>
+    <text x="15" y="182" class="col-regular">   rating_count</text><text x="205" y="182" class="col-type">INT</text>
+    <text x="15" y="204" class="col-regular">   opens_at</text><text x="205" y="204" class="col-type">TIME</text>
+    <text x="15" y="226" class="col-regular">   closes_at</text><text x="205" y="226" class="col-type">TIME</text>
+    <text x="15" y="248" class="col-regular">   is_pure_veg</text><text x="205" y="248" class="col-type">BOOLEAN</text>
+    <text x="15" y="270" class="col-regular">   status</text><text x="205" y="270" class="col-type">VARCHAR(30)</text>
+  </g>
+
+  <!-- Table: MENU_ITEMS (Col 1, Row 4) -->
+  <g transform="translate(50, 780)">
+    <rect class="table-card" width="220" height="150"/>
+    <path d="M 0,0 H 220 V 30 H 0 Z" fill="#2563eb" rx="8"/>
+    <rect y="22" width="220" height="8" fill="#2563eb"/>
+    <text x="110" y="20" class="table-title">menu_items</text>
+    <text x="15" y="50" class="col-pk">PK item_id</text><text x="205" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-fk">FK restaurant_id</text><text x="205" y="72" class="col-type">INT</text>
+    <text x="15" y="94" class="col-regular">   item_name</text><text x="205" y="94" class="col-type">VARCHAR(150)</text>
+    <text x="15" y="116" class="col-regular">   price</text><text x="205" y="116" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="138" class="col-regular">   is_available</text><text x="205" y="138" class="col-type">BOOLEAN</text>
+  </g>
+
+  <!-- Table: CUSTOMERS (Col 2, Row 1) -->
+  <g transform="translate(380, 100)">
+    <rect class="table-card" width="230" height="200"/>
+    <path d="M 0,0 H 230 V 30 H 0 Z" fill="#0284c7" rx="8"/>
+    <rect y="22" width="230" height="8" fill="#0284c7"/>
+    <text x="115" y="20" class="table-title">customers</text>
+    <text x="15" y="50" class="col-pk">PK customer_id</text><text x="215" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-regular">   full_name</text><text x="215" y="72" class="col-type">VARCHAR(100)</text>
+    <text x="15" y="94" class="col-regular">   email (UK)</text><text x="215" y="94" class="col-type">VARCHAR(150)</text>
+    <text x="15" y="116" class="col-regular">   phone (UK)</text><text x="215" y="116" class="col-type">VARCHAR(20)</text>
+    <text x="15" y="138" class="col-fk">FK city_id</text><text x="215" y="138" class="col-type">INT</text>
+    <text x="15" y="160" class="col-regular">   is_gold_member</text><text x="215" y="160" class="col-type">BOOLEAN</text>
+    <text x="15" y="182" class="col-regular">   gold_expires_on</text><text x="215" y="182" class="col-type">DATE</text>
+  </g>
+
+  <!-- Table: DELIVERY_PARTNERS (Col 2, Row 2) -->
+  <g transform="translate(380, 350)">
+    <rect class="table-card" width="230" height="180"/>
+    <path d="M 0,0 H 230 V 30 H 0 Z" fill="#0284c7" rx="8"/>
+    <rect y="22" width="230" height="8" fill="#0284c7"/>
+    <text x="115" y="20" class="table-title">delivery_partners</text>
+    <text x="15" y="50" class="col-pk">PK partner_id</text><text x="215" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-regular">   full_name</text><text x="215" y="72" class="col-type">VARCHAR(100)</text>
+    <text x="15" y="94" class="col-regular">   phone (UK)</text><text x="215" y="94" class="col-type">VARCHAR(20)</text>
+    <text x="15" y="116" class="col-fk">FK city_id</text><text x="215" y="116" class="col-type">INT</text>
+    <text x="15" y="138" class="col-regular">   vehicle_type</text><text x="215" y="138" class="col-type">VARCHAR(20)</text>
+    <text x="15" y="160" class="col-regular">   status</text><text x="215" y="160" class="col-type">VARCHAR(20)</text>
+  </g>
+
+  <!-- Table: COUPONS (Col 2, Row 3) -->
+  <g transform="translate(380, 580)">
+    <rect class="table-card" width="230" height="160"/>
+    <path d="M 0,0 H 230 V 30 H 0 Z" fill="#0284c7" rx="8"/>
+    <rect y="22" width="230" height="8" fill="#0284c7"/>
+    <text x="115" y="20" class="table-title">coupons</text>
+    <text x="15" y="50" class="col-pk">PK coupon_code</text><text x="215" y="50" class="col-type">VARCHAR(50)</text>
+    <text x="15" y="72" class="col-regular">   discount_pct</text><text x="215" y="72" class="col-type">NUMERIC(5,2)</text>
+    <text x="15" y="94" class="col-regular">   max_discount</text><text x="215" y="94" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="116" class="col-regular">   min_order_value</text><text x="215" y="116" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="138" class="col-regular">   valid_to</text><text x="215" y="138" class="col-type">DATE</text>
+  </g>
+
+  <!-- Table: ORDERS (Center Table - Col 3) -->
+  <g transform="translate(710, 100)">
+    <rect class="table-card" width="270" height="440" stroke="#f59e0b" stroke-width="2.5"/>
+    <path d="M 0,0 H 270 V 30 H 0 Z" fill="#d97706" rx="8"/>
+    <rect y="22" width="270" height="8" fill="#d97706"/>
+    <text x="135" y="20" class="table-title">orders (Central Ledger)</text>
+    <text x="15" y="50" class="col-pk">PK order_id</text><text x="255" y="50" class="col-type">BIGINT</text>
+    <text x="15" y="72" class="col-fk">FK customer_id</text><text x="255" y="72" class="col-type">INT</text>
+    <text x="15" y="94" class="col-fk">FK restaurant_id</text><text x="255" y="94" class="col-type">INT</text>
+    <text x="15" y="116" class="col-fk">FK partner_id (nullable)</text><text x="255" y="116" class="col-type">INT</text>
+    <text x="15" y="138" class="col-fk">FK coupon_code (nullable)</text><text x="255" y="138" class="col-type">VARCHAR(50)</text>
+    <text x="15" y="160" class="col-regular">   placed_at</text><text x="255" y="160" class="col-type">TIMESTAMPTZ</text>
+    <text x="15" y="182" class="col-regular">   accepted_at</text><text x="255" y="182" class="col-type">TIMESTAMPTZ</text>
+    <text x="15" y="204" class="col-regular">   picked_up_at</text><text x="255" y="204" class="col-type">TIMESTAMPTZ</text>
+    <text x="15" y="226" class="col-regular">   delivered_at</text><text x="255" y="226" class="col-type">TIMESTAMPTZ</text>
+    <text x="15" y="248" class="col-regular">   distance_km</text><text x="255" y="248" class="col-type">NUMERIC(5,2)</text>
+    <text x="15" y="270" class="col-regular">   item_total</text><text x="255" y="270" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="292" class="col-regular">   delivery_fee</text><text x="255" y="292" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="314" class="col-regular">   discount</text><text x="255" y="314" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="336" class="col-regular">   total_amount</text><text x="255" y="336" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="358" class="col-regular">   status</text><text x="255" y="358" class="col-type">VARCHAR(30)</text>
+  </g>
+
+  <!-- Table: ORDER_ITEMS (Col 4, Row 1) -->
+  <g transform="translate(1080, 100)">
+    <rect class="table-card" width="260" height="150"/>
+    <path d="M 0,0 H 260 V 30 H 0 Z" fill="#10b981" rx="8"/>
+    <rect y="22" width="260" height="8" fill="#10b981"/>
+    <text x="130" y="20" class="table-title">order_items (Junction)</text>
+    <text x="15" y="50" class="col-pk">PK, FK order_id</text><text x="245" y="50" class="col-type">BIGINT</text>
+    <text x="15" y="72" class="col-pk">PK, FK item_id</text><text x="245" y="72" class="col-type">INT</text>
+    <text x="15" y="94" class="col-regular">   quantity</text><text x="245" y="94" class="col-type">INT</text>
+    <text x="15" y="116" class="col-regular">   unit_price</text><text x="245" y="116" class="col-type">NUMERIC(10,2)</text>
+  </g>
+
+  <!-- Table: PAYMENTS (Col 4, Row 2) -->
+  <g transform="translate(1080, 310)">
+    <rect class="table-card" width="260" height="170"/>
+    <path d="M 0,0 H 260 V 30 H 0 Z" fill="#10b981" rx="8"/>
+    <rect y="22" width="260" height="8" fill="#10b981"/>
+    <text x="130" y="20" class="table-title">payments</text>
+    <text x="15" y="50" class="col-pk">PK payment_id</text><text x="245" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-fk">FK order_id</text><text x="245" y="72" class="col-type">BIGINT</text>
+    <text x="15" y="94" class="col-regular">   amount</text><text x="245" y="94" class="col-type">NUMERIC(10,2)</text>
+    <text x="15" y="116" class="col-regular">   method</text><text x="245" y="116" class="col-type">VARCHAR(20)</text>
+    <text x="15" y="138" class="col-regular">   payment_status</text><text x="245" y="138" class="col-type">VARCHAR(20)</text>
+    <text x="15" y="160" class="col-regular">   attempted_at</text><text x="245" y="160" class="col-type">TIMESTAMPTZ</text>
+  </g>
+
+  <!-- Table: REVIEWS (Col 4, Row 3) -->
+  <g transform="translate(1080, 530)">
+    <rect class="table-card" width="260" height="210"/>
+    <path d="M 0,0 H 260 V 30 H 0 Z" fill="#10b981" rx="8"/>
+    <rect y="22" width="260" height="8" fill="#10b981"/>
+    <text x="130" y="20" class="table-title">reviews</text>
+    <text x="15" y="50" class="col-pk">PK review_id</text><text x="245" y="50" class="col-type">INT</text>
+    <text x="15" y="72" class="col-fk">FK order_id</text><text x="245" y="72" class="col-type">BIGINT</text>
+    <text x="15" y="94" class="col-fk">FK customer_id</text><text x="245" y="94" class="col-type">INT</text>
+    <text x="15" y="116" class="col-fk">FK restaurant_id</text><text x="245" y="116" class="col-type">INT</text>
+    <text x="15" y="138" class="col-regular">   food_rating</text><text x="245" y="138" class="col-type">SMALLINT</text>
+    <text x="15" y="160" class="col-regular">   delivery_rating</text><text x="245" y="160" class="col-type">SMALLINT</text>
+    <text x="15" y="182" class="col-regular">   created_at</text><text x="245" y="182" class="col-type">TIMESTAMPTZ</text>
+  </g>
+
+  <!-- Connectors -->
+  <!-- cities to localities -->
+  <path d="M 160 220 L 160 270" class="line" marker-end="url(#arrow)"/>
+  <!-- localities to restaurants -->
+  <path d="M 160 410 L 160 460" class="line" marker-end="url(#arrow)"/>
+  <!-- restaurants to menu_items -->
+  <path d="M 160 740 L 160 780" class="line" marker-end="url(#arrow)"/>
+  <!-- customers to orders -->
+  <path d="M 610 200 L 710 200" class="line" marker-end="url(#arrow)"/>
+  <!-- restaurants to orders -->
+  <path d="M 270 500 L 650 500 L 650 250 L 710 250" class="line" marker-end="url(#arrow)"/>
+  <!-- delivery_partners to orders -->
+  <path d="M 610 400 L 670 400 L 670 280 L 710 280" class="line" marker-end="url(#arrow)"/>
+  <!-- coupons to orders -->
+  <path d="M 610 650 L 680 650 L 680 320 L 710 320" class="line" marker-end="url(#arrow)"/>
+  <!-- orders to order_items -->
+  <path d="M 980 150 L 1080 150" class="line" marker-end="url(#arrow)"/>
+  <!-- orders to payments -->
+  <path d="M 980 350 L 1080 350" class="line" marker-end="url(#arrow)"/>
+  <!-- orders to reviews -->
+  <path d="M 980 450 L 1030 450 L 1030 600 L 1080 600" class="line" marker-end="url(#arrow)"/>
+
+</svg>
