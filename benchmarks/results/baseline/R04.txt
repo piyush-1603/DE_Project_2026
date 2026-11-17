@@ -1,0 +1,63 @@
+=== R04 run 1 ===
+Limit  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.862..4.863 rows=9.00 loops=1)
+  Buffers: shared hit=2446
+  ->  Sort  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.862..4.862 rows=9.00 loops=1)
+        Sort Key: o.placed_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2446
+        ->  Nested Loop  (cost=0.28..4336.79 rows=6 width=47) (actual time=0.357..4.851 rows=9.00 loops=1)
+              Buffers: shared hit=2443
+              ->  Seq Scan on orders o  (cost=0.00..4291.00 rows=6 width=36) (actual time=0.353..4.827 rows=9.00 loops=1)
+                    Filter: (customer_id = 1042)
+                    Rows Removed by Filter: 149991
+                    Buffers: shared hit=2416
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.28..7.63 rows=1 width=19) (actual time=0.002..0.002 rows=1.00 loops=9)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 9
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.332 ms
+Execution Time: 4.884 ms
+=== R04 run 2 ===
+Limit  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.737..4.738 rows=9.00 loops=1)
+  Buffers: shared hit=2446
+  ->  Sort  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.736..4.737 rows=9.00 loops=1)
+        Sort Key: o.placed_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2446
+        ->  Nested Loop  (cost=0.28..4336.79 rows=6 width=47) (actual time=0.364..4.726 rows=9.00 loops=1)
+              Buffers: shared hit=2443
+              ->  Seq Scan on orders o  (cost=0.00..4291.00 rows=6 width=36) (actual time=0.359..4.704 rows=9.00 loops=1)
+                    Filter: (customer_id = 1042)
+                    Rows Removed by Filter: 149991
+                    Buffers: shared hit=2416
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.28..7.63 rows=1 width=19) (actual time=0.002..0.002 rows=1.00 loops=9)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 9
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.340 ms
+Execution Time: 4.760 ms
+=== R04 run 3 ===
+Limit  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.745..4.746 rows=9.00 loops=1)
+  Buffers: shared hit=2446
+  ->  Sort  (cost=4336.87..4336.88 rows=6 width=47) (actual time=4.744..4.745 rows=9.00 loops=1)
+        Sort Key: o.placed_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2446
+        ->  Nested Loop  (cost=0.28..4336.79 rows=6 width=47) (actual time=0.360..4.734 rows=9.00 loops=1)
+              Buffers: shared hit=2443
+              ->  Seq Scan on orders o  (cost=0.00..4291.00 rows=6 width=36) (actual time=0.355..4.711 rows=9.00 loops=1)
+                    Filter: (customer_id = 1042)
+                    Rows Removed by Filter: 149991
+                    Buffers: shared hit=2416
+              ->  Index Scan using restaurants_pkey on restaurants r  (cost=0.28..7.63 rows=1 width=19) (actual time=0.002..0.002 rows=1.00 loops=9)
+                    Index Cond: (restaurant_id = o.restaurant_id)
+                    Index Searches: 9
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.344 ms
+Execution Time: 4.767 ms
