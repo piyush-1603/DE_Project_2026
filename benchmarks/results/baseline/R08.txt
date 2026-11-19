@@ -1,0 +1,180 @@
+=== R08 run 1 ===
+Incremental Sort  (cost=6021.07..6420.71 rows=1789 width=24) (actual time=5.907..6.487 rows=617.00 loops=1)
+  Sort Key: o.restaurant_id, (rank() OVER w1)
+  Presorted Key: o.restaurant_id
+  Full-sort Groups: 19  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+  Buffers: shared hit=4791
+  ->  WindowAgg  (cost=6019.20..6366.07 rows=1789 width=24) (actual time=5.870..6.440 rows=617.00 loops=1)
+        Window: w1 AS (PARTITION BY o.restaurant_id ORDER BY (sum(oi.quantity)) ROWS UNBOUNDED PRECEDING)
+        Run Condition: (rank() OVER w1 <= 3)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=4788
+        ->  Incremental Sort  (cost=6019.20..6334.76 rows=1789 width=16) (actual time=5.868..6.296 rows=1160.00 loops=1)
+              Sort Key: o.restaurant_id, (sum(oi.quantity)) DESC
+              Presorted Key: o.restaurant_id
+              Full-sort Groups: 33  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+              Buffers: shared hit=4788
+              ->  GroupAggregate  (cost=6019.06..6254.26 rows=1789 width=16) (actual time=5.857..6.188 rows=1160.00 loops=1)
+                    Group Key: o.restaurant_id, oi.item_id
+                    Buffers: shared hit=4788
+                    ->  Gather Merge  (cost=6019.06..6222.95 rows=1789 width=12) (actual time=5.853..6.089 rows=1390.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=4788
+                          ->  Sort  (cost=5019.05..5021.68 rows=1052 width=12) (actual time=4.822..4.836 rows=695.00 loops=2)
+                                Sort Key: o.restaurant_id, oi.item_id
+                                Sort Method: quicksort  Memory: 46kB
+                                Buffers: shared hit=4788
+                                Worker 0:  Sort Method: quicksort  Memory: 47kB
+                                ->  Nested Loop  (cost=84.76..4966.24 rows=1052 width=12) (actual time=3.987..4.752 rows=695.00 loops=2)
+                                      Buffers: shared hit=4781
+                                      ->  Hash Join  (cost=84.34..3843.86 rows=421 width=12) (actual time=3.977..4.378 rows=283.00 loops=2)
+                                            Hash Cond: (o.restaurant_id = r.restaurant_id)
+                                            Buffers: shared hit=2512
+                                            ->  Parallel Seq Scan on orders o  (cost=0.00..3739.53 rows=4209 width=12) (actual time=3.778..4.068 rows=3503.50 loops=2)
+                                                  Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'DELIVERED'::text))
+                                                  Rows Removed by Filter: 71496
+                                                  Buffers: shared hit=2416
+                                            ->  Hash  (cost=81.22..81.22 rows=250 width=4) (actual time=0.192..0.192 rows=200.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 16kB
+                                                  Buffers: shared hit=96
+                                                  ->  Hash Join  (cost=2.38..81.22 rows=250 width=4) (actual time=0.033..0.183 rows=200.00 loops=2)
+                                                        Hash Cond: (r.locality_id = l.locality_id)
+                                                        Buffers: shared hit=96
+                                                        ->  Seq Scan on restaurants r  (cost=0.00..72.00 rows=2500 width=8) (actual time=0.013..0.082 rows=2500.00 loops=2)
+                                                              Buffers: shared hit=94
+                                                        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.016..0.016 rows=10.00 loops=2)
+                                                              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                              Buffers: shared hit=2
+                                                              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.012..0.013 rows=10.00 loops=2)
+                                                                    Filter: (city_id = 6)
+                                                                    Rows Removed by Filter: 90
+                                                                    Buffers: shared hit=2
+                                      ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..2.64 rows=3 width=16) (actual time=0.001..0.001 rows=2.46 loops=566)
+                                            Index Cond: (order_id = o.order_id)
+                                            Index Searches: 566
+                                            Buffers: shared hit=2269
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.643 ms
+Execution Time: 6.546 ms
+=== R08 run 2 ===
+Incremental Sort  (cost=6021.07..6420.71 rows=1789 width=24) (actual time=5.833..6.331 rows=617.00 loops=1)
+  Sort Key: o.restaurant_id, (rank() OVER w1)
+  Presorted Key: o.restaurant_id
+  Full-sort Groups: 19  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+  Buffers: shared hit=4791
+  ->  WindowAgg  (cost=6019.20..6366.07 rows=1789 width=24) (actual time=5.800..6.289 rows=617.00 loops=1)
+        Window: w1 AS (PARTITION BY o.restaurant_id ORDER BY (sum(oi.quantity)) ROWS UNBOUNDED PRECEDING)
+        Run Condition: (rank() OVER w1 <= 3)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=4788
+        ->  Incremental Sort  (cost=6019.20..6334.76 rows=1789 width=16) (actual time=5.797..6.159 rows=1160.00 loops=1)
+              Sort Key: o.restaurant_id, (sum(oi.quantity)) DESC
+              Presorted Key: o.restaurant_id
+              Full-sort Groups: 33  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+              Buffers: shared hit=4788
+              ->  GroupAggregate  (cost=6019.06..6254.26 rows=1789 width=16) (actual time=5.788..6.065 rows=1160.00 loops=1)
+                    Group Key: o.restaurant_id, oi.item_id
+                    Buffers: shared hit=4788
+                    ->  Gather Merge  (cost=6019.06..6222.95 rows=1789 width=12) (actual time=5.785..5.976 rows=1390.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=4788
+                          ->  Sort  (cost=5019.05..5021.68 rows=1052 width=12) (actual time=4.706..4.718 rows=695.00 loops=2)
+                                Sort Key: o.restaurant_id, oi.item_id
+                                Sort Method: quicksort  Memory: 48kB
+                                Buffers: shared hit=4788
+                                Worker 0:  Sort Method: quicksort  Memory: 45kB
+                                ->  Nested Loop  (cost=84.76..4966.24 rows=1052 width=12) (actual time=3.939..4.642 rows=695.00 loops=2)
+                                      Buffers: shared hit=4781
+                                      ->  Hash Join  (cost=84.34..3843.86 rows=421 width=12) (actual time=3.928..4.301 rows=283.00 loops=2)
+                                            Hash Cond: (o.restaurant_id = r.restaurant_id)
+                                            Buffers: shared hit=2512
+                                            ->  Parallel Seq Scan on orders o  (cost=0.00..3739.53 rows=4209 width=12) (actual time=3.732..4.002 rows=3503.50 loops=2)
+                                                  Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'DELIVERED'::text))
+                                                  Rows Removed by Filter: 71496
+                                                  Buffers: shared hit=2416
+                                            ->  Hash  (cost=81.22..81.22 rows=250 width=4) (actual time=0.176..0.176 rows=200.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 16kB
+                                                  Buffers: shared hit=96
+                                                  ->  Hash Join  (cost=2.38..81.22 rows=250 width=4) (actual time=0.031..0.169 rows=200.00 loops=2)
+                                                        Hash Cond: (r.locality_id = l.locality_id)
+                                                        Buffers: shared hit=96
+                                                        ->  Seq Scan on restaurants r  (cost=0.00..72.00 rows=2500 width=8) (actual time=0.012..0.076 rows=2500.00 loops=2)
+                                                              Buffers: shared hit=94
+                                                        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.015..0.015 rows=10.00 loops=2)
+                                                              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                              Buffers: shared hit=2
+                                                              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.011..0.012 rows=10.00 loops=2)
+                                                                    Filter: (city_id = 6)
+                                                                    Rows Removed by Filter: 90
+                                                                    Buffers: shared hit=2
+                                      ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..2.64 rows=3 width=16) (actual time=0.001..0.001 rows=2.46 loops=566)
+                                            Index Cond: (order_id = o.order_id)
+                                            Index Searches: 566
+                                            Buffers: shared hit=2269
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.601 ms
+Execution Time: 6.391 ms
+=== R08 run 3 ===
+Incremental Sort  (cost=6021.07..6420.71 rows=1789 width=24) (actual time=5.583..6.096 rows=617.00 loops=1)
+  Sort Key: o.restaurant_id, (rank() OVER w1)
+  Presorted Key: o.restaurant_id
+  Full-sort Groups: 19  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+  Buffers: shared hit=4791
+  ->  WindowAgg  (cost=6019.20..6366.07 rows=1789 width=24) (actual time=5.551..6.053 rows=617.00 loops=1)
+        Window: w1 AS (PARTITION BY o.restaurant_id ORDER BY (sum(oi.quantity)) ROWS UNBOUNDED PRECEDING)
+        Run Condition: (rank() OVER w1 <= 3)
+        Storage: Memory  Maximum Storage: 17kB
+        Buffers: shared hit=4788
+        ->  Incremental Sort  (cost=6019.20..6334.76 rows=1789 width=16) (actual time=5.549..5.933 rows=1160.00 loops=1)
+              Sort Key: o.restaurant_id, (sum(oi.quantity)) DESC
+              Presorted Key: o.restaurant_id
+              Full-sort Groups: 33  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+              Buffers: shared hit=4788
+              ->  GroupAggregate  (cost=6019.06..6254.26 rows=1789 width=16) (actual time=5.539..5.831 rows=1160.00 loops=1)
+                    Group Key: o.restaurant_id, oi.item_id
+                    Buffers: shared hit=4788
+                    ->  Gather Merge  (cost=6019.06..6222.95 rows=1789 width=12) (actual time=5.535..5.743 rows=1390.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=4788
+                          ->  Sort  (cost=5019.05..5021.68 rows=1052 width=12) (actual time=4.420..4.432 rows=695.00 loops=2)
+                                Sort Key: o.restaurant_id, oi.item_id
+                                Sort Method: quicksort  Memory: 47kB
+                                Buffers: shared hit=4788
+                                Worker 0:  Sort Method: quicksort  Memory: 45kB
+                                ->  Nested Loop  (cost=84.76..4966.24 rows=1052 width=12) (actual time=3.664..4.341 rows=695.00 loops=2)
+                                      Buffers: shared hit=4781
+                                      ->  Hash Join  (cost=84.34..3843.86 rows=421 width=12) (actual time=3.655..4.012 rows=283.00 loops=2)
+                                            Hash Cond: (o.restaurant_id = r.restaurant_id)
+                                            Buffers: shared hit=2512
+                                            ->  Parallel Seq Scan on orders o  (cost=0.00..3739.53 rows=4209 width=12) (actual time=3.469..3.724 rows=3503.50 loops=2)
+                                                  Filter: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'DELIVERED'::text))
+                                                  Rows Removed by Filter: 71496
+                                                  Buffers: shared hit=2416
+                                            ->  Hash  (cost=81.22..81.22 rows=250 width=4) (actual time=0.179..0.179 rows=200.00 loops=2)
+                                                  Buckets: 1024  Batches: 1  Memory Usage: 16kB
+                                                  Buffers: shared hit=96
+                                                  ->  Hash Join  (cost=2.38..81.22 rows=250 width=4) (actual time=0.030..0.172 rows=200.00 loops=2)
+                                                        Hash Cond: (r.locality_id = l.locality_id)
+                                                        Buffers: shared hit=96
+                                                        ->  Seq Scan on restaurants r  (cost=0.00..72.00 rows=2500 width=8) (actual time=0.012..0.079 rows=2500.00 loops=2)
+                                                              Buffers: shared hit=94
+                                                        ->  Hash  (cost=2.25..2.25 rows=10 width=4) (actual time=0.014..0.014 rows=10.00 loops=2)
+                                                              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                              Buffers: shared hit=2
+                                                              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=4) (actual time=0.011..0.012 rows=10.00 loops=2)
+                                                                    Filter: (city_id = 6)
+                                                                    Rows Removed by Filter: 90
+                                                                    Buffers: shared hit=2
+                                      ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..2.64 rows=3 width=16) (actual time=0.001..0.001 rows=2.46 loops=566)
+                                            Index Cond: (order_id = o.order_id)
+                                            Index Searches: 566
+                                            Buffers: shared hit=2269
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.601 ms
+Execution Time: 6.154 ms
