@@ -1,33 +1,33 @@
 === R12 run 1 ===
-Limit  (cost=0.14..8.25 rows=7 width=31) (actual time=0.016..0.022 rows=50.00 loops=1)
+Limit  (cost=0.14..8.26 rows=8 width=31) (actual time=0.440..0.445 rows=50.00 loops=1)
   Buffers: shared hit=2 read=1
-  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.25 rows=7 width=31) (actual time=0.016..0.020 rows=50.00 loops=1)
-        Heap Fetches: 50
+  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.26 rows=8 width=31) (actual time=0.440..0.442 rows=50.00 loops=1)
+        Heap Fetches: 22
         Index Searches: 1
         Buffers: shared hit=2 read=1
 Planning:
   Buffers: shared hit=298
-Planning Time: 0.425 ms
-Execution Time: 0.031 ms
+Planning Time: 0.441 ms
+Execution Time: 0.457 ms
 === R12 run 2 ===
-Limit  (cost=0.14..8.25 rows=7 width=31) (actual time=0.009..0.014 rows=50.00 loops=1)
+Limit  (cost=0.14..8.26 rows=8 width=31) (actual time=0.027..0.031 rows=50.00 loops=1)
   Buffers: shared hit=3
-  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.25 rows=7 width=31) (actual time=0.008..0.012 rows=50.00 loops=1)
-        Heap Fetches: 50
+  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.26 rows=8 width=31) (actual time=0.026..0.028 rows=50.00 loops=1)
+        Heap Fetches: 22
         Index Searches: 1
         Buffers: shared hit=3
 Planning:
   Buffers: shared hit=298
-Planning Time: 0.419 ms
-Execution Time: 0.023 ms
+Planning Time: 0.429 ms
+Execution Time: 0.042 ms
 === R12 run 3 ===
-Limit  (cost=0.14..8.25 rows=7 width=31) (actual time=0.009..0.014 rows=50.00 loops=1)
+Limit  (cost=0.14..8.26 rows=8 width=31) (actual time=0.033..0.038 rows=50.00 loops=1)
   Buffers: shared hit=3
-  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.25 rows=7 width=31) (actual time=0.008..0.012 rows=50.00 loops=1)
-        Heap Fetches: 50
+  ->  Index Only Scan using idx_orders_unassigned_placed_at on orders o  (cost=0.14..8.26 rows=8 width=31) (actual time=0.032..0.035 rows=50.00 loops=1)
+        Heap Fetches: 22
         Index Searches: 1
         Buffers: shared hit=3
 Planning:
   Buffers: shared hit=298
-Planning Time: 0.451 ms
-Execution Time: 0.024 ms
+Planning Time: 0.508 ms
+Execution Time: 0.051 ms

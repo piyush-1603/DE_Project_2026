@@ -1,54 +1,54 @@
 === R16 run 1 ===
-Sort  (cost=191.12..191.13 rows=4 width=12) (actual time=0.060..0.061 rows=3.00 loops=1)
+Sort  (cost=10.55..10.56 rows=4 width=12) (actual time=0.349..0.349 rows=3.00 loops=1)
   Sort Key: (count(*)) DESC
   Sort Method: quicksort  Memory: 25kB
-  Buffers: shared hit=19 read=3
-  ->  HashAggregate  (cost=191.04..191.08 rows=4 width=12) (actual time=0.053..0.054 rows=3.00 loops=1)
+  Buffers: shared hit=4 read=3
+  ->  HashAggregate  (cost=10.47..10.51 rows=4 width=12) (actual time=0.341..0.341 rows=3.00 loops=1)
         Group Key: method
         Batches: 1  Memory Usage: 32kB
-        Buffers: shared hit=16 read=3
-        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..190.62 rows=83 width=4) (actual time=0.026..0.045 rows=82.00 loops=1)
+        Buffers: shared hit=1 read=3
+        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..10.06 rows=82 width=4) (actual time=0.331..0.333 rows=82.00 loops=1)
               Index Cond: ((payment_status = 'FAILED'::text) AND (attempted_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 82
+              Heap Fetches: 0
               Index Searches: 1
-              Buffers: shared hit=16 read=3
+              Buffers: shared hit=1 read=3
 Planning:
-  Buffers: shared hit=183 read=2
-Planning Time: 0.314 ms
-Execution Time: 0.082 ms
+  Buffers: shared hit=176 read=3
+Planning Time: 0.990 ms
+Execution Time: 0.378 ms
 === R16 run 2 ===
-Sort  (cost=191.12..191.13 rows=4 width=12) (actual time=0.051..0.051 rows=3.00 loops=1)
+Sort  (cost=10.55..10.56 rows=4 width=12) (actual time=0.044..0.044 rows=3.00 loops=1)
   Sort Key: (count(*)) DESC
   Sort Method: quicksort  Memory: 25kB
-  Buffers: shared hit=22
-  ->  HashAggregate  (cost=191.04..191.08 rows=4 width=12) (actual time=0.043..0.043 rows=3.00 loops=1)
+  Buffers: shared hit=7
+  ->  HashAggregate  (cost=10.47..10.51 rows=4 width=12) (actual time=0.038..0.038 rows=3.00 loops=1)
         Group Key: method
         Batches: 1  Memory Usage: 32kB
-        Buffers: shared hit=19
-        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..190.62 rows=83 width=4) (actual time=0.015..0.035 rows=82.00 loops=1)
+        Buffers: shared hit=4
+        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..10.06 rows=82 width=4) (actual time=0.029..0.031 rows=82.00 loops=1)
               Index Cond: ((payment_status = 'FAILED'::text) AND (attempted_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 82
+              Heap Fetches: 0
               Index Searches: 1
-              Buffers: shared hit=19
+              Buffers: shared hit=4
 Planning:
   Buffers: shared hit=179
-Planning Time: 0.289 ms
-Execution Time: 0.076 ms
+Planning Time: 0.239 ms
+Execution Time: 0.064 ms
 === R16 run 3 ===
-Sort  (cost=191.12..191.13 rows=4 width=12) (actual time=0.046..0.047 rows=3.00 loops=1)
+Sort  (cost=10.55..10.56 rows=4 width=12) (actual time=0.045..0.045 rows=3.00 loops=1)
   Sort Key: (count(*)) DESC
   Sort Method: quicksort  Memory: 25kB
-  Buffers: shared hit=22
-  ->  HashAggregate  (cost=191.04..191.08 rows=4 width=12) (actual time=0.040..0.040 rows=3.00 loops=1)
+  Buffers: shared hit=7
+  ->  HashAggregate  (cost=10.47..10.51 rows=4 width=12) (actual time=0.039..0.039 rows=3.00 loops=1)
         Group Key: method
         Batches: 1  Memory Usage: 32kB
-        Buffers: shared hit=19
-        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..190.62 rows=83 width=4) (actual time=0.013..0.032 rows=82.00 loops=1)
+        Buffers: shared hit=4
+        ->  Index Only Scan using idx_payments_status_attempted_at on payments  (cost=0.42..10.06 rows=82 width=4) (actual time=0.029..0.031 rows=82.00 loops=1)
               Index Cond: ((payment_status = 'FAILED'::text) AND (attempted_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 82
+              Heap Fetches: 0
               Index Searches: 1
-              Buffers: shared hit=19
+              Buffers: shared hit=4
 Planning:
   Buffers: shared hit=179
-Planning Time: 0.241 ms
-Execution Time: 0.067 ms
+Planning Time: 0.254 ms
+Execution Time: 0.068 ms

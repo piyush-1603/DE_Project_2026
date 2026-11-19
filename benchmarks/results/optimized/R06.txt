@@ -1,27 +1,27 @@
 === R06 run 1 ===
-Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.019..0.019 rows=1.00 loops=1)
+Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.561..0.562 rows=1.00 loops=1)
   Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-06-15'::date) AND (placed_at < '2026-06-16'::date))
   Index Searches: 1
   Buffers: shared hit=6 read=1
 Planning:
-  Buffers: shared hit=265
-Planning Time: 0.424 ms
-Execution Time: 0.029 ms
+  Buffers: shared hit=263
+Planning Time: 0.466 ms
+Execution Time: 0.572 ms
 === R06 run 2 ===
-Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.014..0.014 rows=1.00 loops=1)
+Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.012..0.012 rows=1.00 loops=1)
   Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-06-15'::date) AND (placed_at < '2026-06-16'::date))
   Index Searches: 1
   Buffers: shared hit=7
 Planning:
   Buffers: shared hit=263
-Planning Time: 0.447 ms
-Execution Time: 0.025 ms
+Planning Time: 0.441 ms
+Execution Time: 0.022 ms
 === R06 run 3 ===
-Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.014..0.015 rows=1.00 loops=1)
+Index Scan Backward using idx_orders_restaurant_id_placed_at on orders  (cost=0.42..8.44 rows=1 width=32) (actual time=0.015..0.015 rows=1.00 loops=1)
   Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-06-15'::date) AND (placed_at < '2026-06-16'::date))
   Index Searches: 1
   Buffers: shared hit=7
 Planning:
   Buffers: shared hit=263
-Planning Time: 0.447 ms
+Planning Time: 0.449 ms
 Execution Time: 0.025 ms

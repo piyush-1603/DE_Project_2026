@@ -1,48 +1,60 @@
 === R14 run 1 ===
-Nested Loop Semi Join  (cost=0.42..2111.44 rows=63 width=20) (actual time=0.010..2.614 rows=379.00 loops=1)
-  Buffers: shared hit=3914 read=507
-  ->  Seq Scan on customers c  (cost=0.00..664.50 rows=186 width=20) (actual time=0.005..1.008 rows=1230.00 loops=1)
-        Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
-        Rows Removed by Filter: 23770
-        Buffers: shared hit=352
-  ->  Index Only Scan using idx_orders_customer_id_placed_at on orders o  (cost=0.42..7.78 rows=1 width=4) (actual time=0.001..0.001 rows=0.31 loops=1230)
-        Index Cond: ((customer_id = c.customer_id) AND (placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 379
-        Index Searches: 1230
-        Buffers: shared hit=3562 read=507
+Hash Right Semi Join  (cost=688.25..1065.42 rows=63 width=20) (actual time=1.849..2.405 rows=379.00 loops=1)
+  Hash Cond: (o.customer_id = c.customer_id)
+  Buffers: shared hit=410
+  ->  Index Only Scan using idx_orders_placed_at_customer_id on orders o  (cost=0.42..323.99 rows=8416 width=4) (actual time=0.007..0.297 rows=8241.00 loops=1)
+        Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 103
+        Index Searches: 1
+        Buffers: shared hit=37
+  ->  Hash  (cost=685.50..685.50 rows=186 width=20) (actual time=1.836..1.837 rows=1230.00 loops=1)
+        Buckets: 2048 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 81kB
+        Buffers: shared hit=373
+        ->  Seq Scan on customers c  (cost=0.00..685.50 rows=186 width=20) (actual time=0.004..1.743 rows=1230.00 loops=1)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 23770
+              Buffers: shared hit=373
 Planning:
-  Buffers: shared hit=458 read=4
-Planning Time: 0.671 ms
-Execution Time: 2.631 ms
+  Buffers: shared hit=453 read=10
+Planning Time: 2.008 ms
+Execution Time: 2.430 ms
 === R14 run 2 ===
-Nested Loop Semi Join  (cost=0.42..2111.44 rows=63 width=20) (actual time=0.009..2.109 rows=379.00 loops=1)
-  Buffers: shared hit=4421
-  ->  Seq Scan on customers c  (cost=0.00..664.50 rows=186 width=20) (actual time=0.004..0.909 rows=1230.00 loops=1)
-        Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
-        Rows Removed by Filter: 23770
-        Buffers: shared hit=352
-  ->  Index Only Scan using idx_orders_customer_id_placed_at on orders o  (cost=0.42..7.78 rows=1 width=4) (actual time=0.001..0.001 rows=0.31 loops=1230)
-        Index Cond: ((customer_id = c.customer_id) AND (placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 379
-        Index Searches: 1230
-        Buffers: shared hit=4069
+Hash Right Semi Join  (cost=688.25..1065.42 rows=63 width=20) (actual time=1.496..2.226 rows=379.00 loops=1)
+  Hash Cond: (o.customer_id = c.customer_id)
+  Buffers: shared hit=410
+  ->  Index Only Scan using idx_orders_placed_at_customer_id on orders o  (cost=0.42..323.99 rows=8416 width=4) (actual time=0.009..0.377 rows=8241.00 loops=1)
+        Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 103
+        Index Searches: 1
+        Buffers: shared hit=37
+  ->  Hash  (cost=685.50..685.50 rows=186 width=20) (actual time=1.480..1.480 rows=1230.00 loops=1)
+        Buckets: 2048 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 81kB
+        Buffers: shared hit=373
+        ->  Seq Scan on customers c  (cost=0.00..685.50 rows=186 width=20) (actual time=0.005..1.367 rows=1230.00 loops=1)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 23770
+              Buffers: shared hit=373
 Planning:
-  Buffers: shared hit=460
-Planning Time: 0.622 ms
-Execution Time: 2.126 ms
+  Buffers: shared hit=463
+Planning Time: 0.868 ms
+Execution Time: 2.256 ms
 === R14 run 3 ===
-Nested Loop Semi Join  (cost=0.42..2111.44 rows=63 width=20) (actual time=0.009..2.188 rows=379.00 loops=1)
-  Buffers: shared hit=4421
-  ->  Seq Scan on customers c  (cost=0.00..664.50 rows=186 width=20) (actual time=0.004..0.964 rows=1230.00 loops=1)
-        Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
-        Rows Removed by Filter: 23770
-        Buffers: shared hit=352
-  ->  Index Only Scan using idx_orders_customer_id_placed_at on orders o  (cost=0.42..7.78 rows=1 width=4) (actual time=0.001..0.001 rows=0.31 loops=1230)
-        Index Cond: ((customer_id = c.customer_id) AND (placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 379
-        Index Searches: 1230
-        Buffers: shared hit=4069
+Hash Right Semi Join  (cost=688.25..1065.42 rows=63 width=20) (actual time=1.165..1.697 rows=379.00 loops=1)
+  Hash Cond: (o.customer_id = c.customer_id)
+  Buffers: shared hit=410
+  ->  Index Only Scan using idx_orders_placed_at_customer_id on orders o  (cost=0.42..323.99 rows=8416 width=4) (actual time=0.008..0.284 rows=8241.00 loops=1)
+        Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+        Heap Fetches: 103
+        Index Searches: 1
+        Buffers: shared hit=37
+  ->  Hash  (cost=685.50..685.50 rows=186 width=20) (actual time=1.152..1.153 rows=1230.00 loops=1)
+        Buckets: 2048 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 81kB
+        Buffers: shared hit=373
+        ->  Seq Scan on customers c  (cost=0.00..685.50 rows=186 width=20) (actual time=0.004..1.070 rows=1230.00 loops=1)
+              Filter: (is_gold_member AND (gold_expires_on < '2026-07-01'::date))
+              Rows Removed by Filter: 23770
+              Buffers: shared hit=373
 Planning:
-  Buffers: shared hit=460
-Planning Time: 0.606 ms
-Execution Time: 2.205 ms
+  Buffers: shared hit=463
+Planning Time: 0.815 ms
+Execution Time: 1.719 ms

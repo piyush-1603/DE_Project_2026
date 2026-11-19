@@ -1,48 +1,48 @@
 === R13 run 1 ===
-Nested Loop Anti Join  (cost=0.42..2140.31 rows=59 width=27) (actual time=0.017..0.652 rows=129.00 loops=1)
-  Buffers: shared hit=846 read=192
-  ->  Seq Scan on delivery_partners p  (cost=0.00..54.00 rows=282 width=27) (actual time=0.004..0.097 rows=285.00 loops=1)
+Nested Loop Anti Join  (cost=0.42..1079.40 rows=50 width=27) (actual time=0.023..6.320 rows=129.00 loops=1)
+  Buffers: shared hit=694 read=192
+  ->  Seq Scan on delivery_partners p  (cost=0.00..53.00 rows=282 width=27) (actual time=0.004..0.136 rows=285.00 loops=1)
         Filter: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
         Rows Removed by Filter: 1715
-        Buffers: shared hit=24
-  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..7.39 rows=1 width=4) (actual time=0.002..0.002 rows=0.55 loops=285)
+        Buffers: shared hit=23
+  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..3.63 rows=1 width=4) (actual time=0.022..0.022 rows=0.55 loops=285)
         Index Cond: ((partner_id = p.partner_id) AND (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 156
+        Heap Fetches: 4
         Index Searches: 285
-        Buffers: shared hit=822 read=192
+        Buffers: shared hit=671 read=192
 Planning:
-  Buffers: shared hit=424
-Planning Time: 0.625 ms
-Execution Time: 0.666 ms
+  Buffers: shared hit=421
+Planning Time: 0.894 ms
+Execution Time: 6.335 ms
 === R13 run 2 ===
-Nested Loop Anti Join  (cost=0.42..2140.31 rows=59 width=27) (actual time=0.009..0.435 rows=129.00 loops=1)
-  Buffers: shared hit=1038
-  ->  Seq Scan on delivery_partners p  (cost=0.00..54.00 rows=282 width=27) (actual time=0.004..0.083 rows=285.00 loops=1)
+Nested Loop Anti Join  (cost=0.42..1079.40 rows=50 width=27) (actual time=0.012..0.501 rows=129.00 loops=1)
+  Buffers: shared hit=886
+  ->  Seq Scan on delivery_partners p  (cost=0.00..53.00 rows=282 width=27) (actual time=0.005..0.109 rows=285.00 loops=1)
         Filter: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
         Rows Removed by Filter: 1715
-        Buffers: shared hit=24
-  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..7.39 rows=1 width=4) (actual time=0.001..0.001 rows=0.55 loops=285)
+        Buffers: shared hit=23
+  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..3.63 rows=1 width=4) (actual time=0.001..0.001 rows=0.55 loops=285)
         Index Cond: ((partner_id = p.partner_id) AND (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 156
+        Heap Fetches: 4
         Index Searches: 285
-        Buffers: shared hit=1014
+        Buffers: shared hit=863
 Planning:
-  Buffers: shared hit=420
-Planning Time: 0.575 ms
-Execution Time: 0.448 ms
+  Buffers: shared hit=421
+Planning Time: 0.667 ms
+Execution Time: 0.518 ms
 === R13 run 3 ===
-Nested Loop Anti Join  (cost=0.42..2140.31 rows=59 width=27) (actual time=0.009..0.500 rows=129.00 loops=1)
-  Buffers: shared hit=1038
-  ->  Seq Scan on delivery_partners p  (cost=0.00..54.00 rows=282 width=27) (actual time=0.004..0.092 rows=285.00 loops=1)
+Nested Loop Anti Join  (cost=0.42..1079.40 rows=50 width=27) (actual time=0.011..0.515 rows=129.00 loops=1)
+  Buffers: shared hit=886
+  ->  Seq Scan on delivery_partners p  (cost=0.00..53.00 rows=282 width=27) (actual time=0.004..0.111 rows=285.00 loops=1)
         Filter: ((city_id = 1) AND ((status)::text = 'ACTIVE'::text))
         Rows Removed by Filter: 1715
-        Buffers: shared hit=24
-  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..7.39 rows=1 width=4) (actual time=0.001..0.001 rows=0.55 loops=285)
+        Buffers: shared hit=23
+  ->  Index Only Scan using idx_orders_partner_id_placed_at on orders o  (cost=0.42..3.63 rows=1 width=4) (actual time=0.001..0.001 rows=0.55 loops=285)
         Index Cond: ((partner_id = p.partner_id) AND (placed_at >= '2026-06-25 00:00:00+05:30'::timestamp with time zone))
-        Heap Fetches: 156
+        Heap Fetches: 4
         Index Searches: 285
-        Buffers: shared hit=1014
+        Buffers: shared hit=863
 Planning:
-  Buffers: shared hit=420
-Planning Time: 0.570 ms
-Execution Time: 0.514 ms
+  Buffers: shared hit=421
+Planning Time: 0.741 ms
+Execution Time: 0.532 ms

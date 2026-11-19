@@ -1,62 +1,99 @@
 === R07 run 1 ===
-Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.047..0.047 rows=3.00 loops=1)
+Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.553..0.553 rows=3.00 loops=1)
   Sort Key: (sum(oi.quantity)) DESC
   Sort Method: quicksort  Memory: 25kB
-  Buffers: shared hit=23
-  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.041..0.042 rows=3.00 loops=1)
+  Buffers: shared hit=21 read=2
+  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.541..0.543 rows=3.00 loops=1)
         Group Key: m.item_name
-        Buffers: shared hit=20
-        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.033..0.033 rows=3.00 loops=1)
+        Buffers: shared hit=18 read=2
+        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.289..0.290 rows=3.00 loops=1)
               Sort Key: m.item_name
               Sort Method: quicksort  Memory: 25kB
-              Buffers: shared hit=20
-              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.018..0.020 rows=3.00 loops=1)
-                    Buffers: shared hit=17
-                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.013..0.014 rows=3.00 loops=1)
-                          Buffers: shared hit=8
-                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.008..0.008 rows=1.00 loops=1)
+              Buffers: shared hit=18 read=2
+              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.271..0.274 rows=3.00 loops=1)
+                    Buffers: shared hit=15 read=2
+                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.145..0.146 rows=3.00 loops=1)
+                          Buffers: shared hit=7 read=1
+                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.010..0.010 rows=1.00 loops=1)
                                 Recheck Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
                                 Filter: ((status)::text = 'DELIVERED'::text)
                                 Heap Blocks: exact=1
                                 Buffers: shared hit=4
-                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.004..0.004 rows=1.00 loops=1)
+                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.005..0.005 rows=1.00 loops=1)
                                       Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
                                       Index Searches: 1
                                       Buffers: shared hit=3
-                          ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..11.97 rows=3 width=21) (actual time=0.004..0.005 rows=3.00 loops=1)
+                          ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..11.97 rows=3 width=21) (actual time=0.134..0.135 rows=3.00 loops=1)
                                 Index Cond: (order_id = o.order_id)
                                 Index Searches: 1
-                                Buffers: shared hit=4
-                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=3)
+                                Buffers: shared hit=3 read=1
+                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.042..0.042 rows=1.00 loops=3)
                           Index Cond: (item_id = oi.item_id)
                           Index Searches: 3
-                          Buffers: shared hit=9
+                          Buffers: shared hit=8 read=1
 Planning:
-  Buffers: shared hit=527
-Planning Time: 0.868 ms
-Execution Time: 0.076 ms
+  Buffers: shared hit=517 read=9
+Planning Time: 2.475 ms
+Execution Time: 0.733 ms
 === R07 run 2 ===
-Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.048..0.048 rows=3.00 loops=1)
+Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.079..0.080 rows=3.00 loops=1)
   Sort Key: (sum(oi.quantity)) DESC
   Sort Method: quicksort  Memory: 25kB
   Buffers: shared hit=23
-  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.041..0.043 rows=3.00 loops=1)
+  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.064..0.066 rows=3.00 loops=1)
         Group Key: m.item_name
         Buffers: shared hit=20
-        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.033..0.034 rows=3.00 loops=1)
+        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.053..0.053 rows=3.00 loops=1)
               Sort Key: m.item_name
               Sort Method: quicksort  Memory: 25kB
               Buffers: shared hit=20
-              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.018..0.020 rows=3.00 loops=1)
+              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.028..0.032 rows=3.00 loops=1)
                     Buffers: shared hit=17
-                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.013..0.014 rows=3.00 loops=1)
+                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.020..0.021 rows=3.00 loops=1)
                           Buffers: shared hit=8
-                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.008..0.008 rows=1.00 loops=1)
+                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.013..0.013 rows=1.00 loops=1)
                                 Recheck Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
                                 Filter: ((status)::text = 'DELIVERED'::text)
                                 Heap Blocks: exact=1
                                 Buffers: shared hit=4
-                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.004..0.004 rows=1.00 loops=1)
+                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.007..0.007 rows=1.00 loops=1)
+                                      Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=3
+                          ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..11.97 rows=3 width=21) (actual time=0.006..0.006 rows=3.00 loops=1)
+                                Index Cond: (order_id = o.order_id)
+                                Index Searches: 1
+                                Buffers: shared hit=4
+                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.003..0.003 rows=1.00 loops=3)
+                          Index Cond: (item_id = oi.item_id)
+                          Index Searches: 3
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=526
+Planning Time: 1.289 ms
+Execution Time: 0.123 ms
+=== R07 run 3 ===
+Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.070..0.071 rows=3.00 loops=1)
+  Sort Key: (sum(oi.quantity)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=23
+  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.057..0.059 rows=3.00 loops=1)
+        Group Key: m.item_name
+        Buffers: shared hit=20
+        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.046..0.047 rows=3.00 loops=1)
+              Sort Key: m.item_name
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=20
+              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.025..0.028 rows=3.00 loops=1)
+                    Buffers: shared hit=17
+                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.017..0.018 rows=3.00 loops=1)
+                          Buffers: shared hit=8
+                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.011..0.012 rows=1.00 loops=1)
+                                Recheck Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                Filter: ((status)::text = 'DELIVERED'::text)
+                                Heap Blocks: exact=1
+                                Buffers: shared hit=4
+                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.006..0.006 rows=1.00 loops=1)
                                       Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
                                       Index Searches: 1
                                       Buffers: shared hit=3
@@ -64,48 +101,11 @@ Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.048..0.048 rows=3.00 lo
                                 Index Cond: (order_id = o.order_id)
                                 Index Searches: 1
                                 Buffers: shared hit=4
-                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=3)
+                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.003..0.003 rows=1.00 loops=3)
                           Index Cond: (item_id = oi.item_id)
                           Index Searches: 3
                           Buffers: shared hit=9
 Planning:
-  Buffers: shared hit=525
-Planning Time: 0.799 ms
-Execution Time: 0.077 ms
-=== R07 run 3 ===
-Sort  (cost=59.05..59.07 rows=8 width=53) (actual time=0.043..0.043 rows=3.00 loops=1)
-  Sort Key: (sum(oi.quantity)) DESC
-  Sort Method: quicksort  Memory: 25kB
-  Buffers: shared hit=23
-  ->  GroupAggregate  (cost=58.71..58.93 rows=8 width=53) (actual time=0.038..0.039 rows=3.00 loops=1)
-        Group Key: m.item_name
-        Buffers: shared hit=20
-        ->  Sort  (cost=58.71..58.73 rows=8 width=22) (actual time=0.030..0.031 rows=3.00 loops=1)
-              Sort Key: m.item_name
-              Sort Method: quicksort  Memory: 25kB
-              Buffers: shared hit=20
-              ->  Nested Loop  (cost=5.18..58.59 rows=8 width=22) (actual time=0.017..0.019 rows=3.00 loops=1)
-                    Buffers: shared hit=17
-                    ->  Nested Loop  (cost=4.89..56.08 rows=8 width=13) (actual time=0.012..0.013 rows=3.00 loops=1)
-                          Buffers: shared hit=8
-                          ->  Bitmap Heap Scan on orders o  (cost=4.47..20.06 rows=3 width=8) (actual time=0.007..0.008 rows=1.00 loops=1)
-                                Recheck Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
-                                Filter: ((status)::text = 'DELIVERED'::text)
-                                Heap Blocks: exact=1
-                                Buffers: shared hit=4
-                                ->  Bitmap Index Scan on idx_orders_restaurant_id_placed_at  (cost=0.00..4.47 rows=4 width=0) (actual time=0.004..0.004 rows=1.00 loops=1)
-                                      Index Cond: ((restaurant_id = 217) AND (placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
-                                      Index Searches: 1
-                                      Buffers: shared hit=3
-                          ->  Index Scan using order_items_pkey on order_items oi  (cost=0.42..11.97 rows=3 width=21) (actual time=0.004..0.004 rows=3.00 loops=1)
-                                Index Cond: (order_id = o.order_id)
-                                Index Searches: 1
-                                Buffers: shared hit=4
-                    ->  Index Scan using menu_items_pkey on menu_items m  (cost=0.29..0.31 rows=1 width=17) (actual time=0.002..0.002 rows=1.00 loops=3)
-                          Index Cond: (item_id = oi.item_id)
-                          Index Searches: 3
-                          Buffers: shared hit=9
-Planning:
-  Buffers: shared hit=525
-Planning Time: 0.727 ms
-Execution Time: 0.070 ms
+  Buffers: shared hit=526
+Planning Time: 1.051 ms
+Execution Time: 0.109 ms
