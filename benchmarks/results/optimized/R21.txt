@@ -1,0 +1,105 @@
+=== R21 run 1 ===
+Sort  (cost=3797.93..3797.96 rows=10 width=52) (actual time=4.339..4.340 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=496 read=33
+  ->  HashAggregate  (cost=3797.54..3797.76 rows=10 width=52) (actual time=4.328..4.330 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=493 read=33
+        ->  Hash Join  (cost=3055.76..3723.40 rows=7414 width=12) (actual time=1.886..3.929 rows=7210.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=493 read=33
+              ->  Seq Scan on customers c  (cost=0.00..602.00 rows=25000 width=8) (actual time=0.003..0.771 rows=25000.00 loops=1)
+                    Buffers: shared hit=352
+              ->  Hash  (cost=2963.09..2963.09 rows=7414 width=12) (actual time=1.875..1.875 rows=7210.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 374kB
+                    Buffers: shared hit=141 read=33
+                    ->  Subquery Scan on may  (cost=2814.81..2963.09 rows=7414 width=12) (actual time=1.100..1.600 rows=7210.00 loops=1)
+                          Buffers: shared hit=141 read=33
+                          ->  HashAggregate  (cost=2814.81..2888.95 rows=7414 width=12) (actual time=1.100..1.365 rows=7210.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 1  Memory Usage: 793kB
+                                Buffers: shared hit=141 read=33
+                                ->  Bitmap Heap Scan on orders  (cost=225.33..2771.44 rows=8674 width=4) (actual time=0.172..0.526 rows=8517.00 loops=1)
+                                      Recheck Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=138
+                                      Buffers: shared hit=141 read=33
+                                      ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..223.16 rows=8674 width=0) (actual time=0.163..0.163 rows=8517.00 loops=1)
+                                            Index Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=3 read=33
+Planning:
+  Buffers: shared hit=356
+Planning Time: 0.589 ms
+Execution Time: 4.394 ms
+=== R21 run 2 ===
+Sort  (cost=3797.93..3797.96 rows=10 width=52) (actual time=4.232..4.233 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=529
+  ->  HashAggregate  (cost=3797.54..3797.76 rows=10 width=52) (actual time=4.219..4.221 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=526
+        ->  Hash Join  (cost=3055.76..3723.40 rows=7414 width=12) (actual time=1.800..3.828 rows=7210.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=526
+              ->  Seq Scan on customers c  (cost=0.00..602.00 rows=25000 width=8) (actual time=0.003..0.780 rows=25000.00 loops=1)
+                    Buffers: shared hit=352
+              ->  Hash  (cost=2963.09..2963.09 rows=7414 width=12) (actual time=1.786..1.787 rows=7210.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 374kB
+                    Buffers: shared hit=174
+                    ->  Subquery Scan on may  (cost=2814.81..2963.09 rows=7414 width=12) (actual time=1.026..1.529 rows=7210.00 loops=1)
+                          Buffers: shared hit=174
+                          ->  HashAggregate  (cost=2814.81..2888.95 rows=7414 width=12) (actual time=1.026..1.296 rows=7210.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 1  Memory Usage: 793kB
+                                Buffers: shared hit=174
+                                ->  Bitmap Heap Scan on orders  (cost=225.33..2771.44 rows=8674 width=4) (actual time=0.139..0.479 rows=8517.00 loops=1)
+                                      Recheck Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=138
+                                      Buffers: shared hit=174
+                                      ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..223.16 rows=8674 width=0) (actual time=0.130..0.130 rows=8517.00 loops=1)
+                                            Index Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=356
+Planning Time: 0.566 ms
+Execution Time: 4.287 ms
+=== R21 run 3 ===
+Sort  (cost=3797.93..3797.96 rows=10 width=52) (actual time=4.246..4.246 rows=10.00 loops=1)
+  Sort Key: c.city_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=529
+  ->  HashAggregate  (cost=3797.54..3797.76 rows=10 width=52) (actual time=4.235..4.237 rows=10.00 loops=1)
+        Group Key: c.city_id
+        Batches: 1  Memory Usage: 32kB
+        Buffers: shared hit=526
+        ->  Hash Join  (cost=3055.76..3723.40 rows=7414 width=12) (actual time=1.788..3.841 rows=7210.00 loops=1)
+              Hash Cond: (c.customer_id = may.customer_id)
+              Buffers: shared hit=526
+              ->  Seq Scan on customers c  (cost=0.00..602.00 rows=25000 width=8) (actual time=0.003..0.779 rows=25000.00 loops=1)
+                    Buffers: shared hit=352
+              ->  Hash  (cost=2963.09..2963.09 rows=7414 width=12) (actual time=1.778..1.778 rows=7210.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 374kB
+                    Buffers: shared hit=174
+                    ->  Subquery Scan on may  (cost=2814.81..2963.09 rows=7414 width=12) (actual time=1.016..1.521 rows=7210.00 loops=1)
+                          Buffers: shared hit=174
+                          ->  HashAggregate  (cost=2814.81..2888.95 rows=7414 width=12) (actual time=1.016..1.284 rows=7210.00 loops=1)
+                                Group Key: orders.customer_id
+                                Batches: 1  Memory Usage: 793kB
+                                Buffers: shared hit=174
+                                ->  Bitmap Heap Scan on orders  (cost=225.33..2771.44 rows=8674 width=4) (actual time=0.129..0.471 rows=8517.00 loops=1)
+                                      Recheck Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=138
+                                      Buffers: shared hit=174
+                                      ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..223.16 rows=8674 width=0) (actual time=0.120..0.120 rows=8517.00 loops=1)
+                                            Index Cond: ((placed_at >= '2026-05-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-06-01 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=36
+Planning:
+  Buffers: shared hit=356
+Planning Time: 0.562 ms
+Execution Time: 4.293 ms

@@ -1,0 +1,93 @@
+=== R17 run 1 ===
+Sort  (cost=6494.18..6499.96 rows=2313 width=12) (actual time=12.199..12.213 rows=834.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 51kB
+  Buffers: shared hit=3701 read=41
+  ->  HashAggregate  (cost=6278.21..6364.93 rows=2313 width=12) (actual time=11.924..12.092 rows=834.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 1  Memory Usage: 409kB
+        Rows Removed by Filter: 5220
+        Buffers: shared hit=3695 read=41
+        ->  Hash Join  (cost=1695.64..6243.52 rows=6938 width=4) (actual time=1.615..11.365 rows=6965.00 loops=1)
+              Hash Cond: (o.order_id = p.order_id)
+              Buffers: shared hit=3695 read=41
+              ->  Seq Scan on orders o  (cost=0.00..3916.00 rows=150000 width=12) (actual time=0.002..4.919 rows=150000.00 loops=1)
+                    Buffers: shared hit=2416
+              ->  Hash  (cost=1608.91..1608.91 rows=6938 width=8) (actual time=1.604..1.604 rows=6965.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 337kB
+                    Buffers: shared hit=1279 read=41
+                    ->  Bitmap Heap Scan on payments p  (cost=226.19..1608.91 rows=6938 width=8) (actual time=0.307..1.385 rows=6965.00 loops=1)
+                          Recheck Cond: ((payment_status)::text = 'FAILED'::text)
+                          Heap Blocks: exact=1276
+                          Buffers: shared hit=1279 read=41
+                          ->  Bitmap Index Scan on idx_payments_status_attempted_at  (cost=0.00..224.45 rows=6938 width=0) (actual time=0.238..0.238 rows=6965.00 loops=1)
+                                Index Cond: ((payment_status)::text = 'FAILED'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=3 read=41
+Planning:
+  Buffers: shared hit=367
+Planning Time: 0.552 ms
+Execution Time: 12.262 ms
+=== R17 run 2 ===
+Sort  (cost=6494.18..6499.96 rows=2313 width=12) (actual time=12.324..12.339 rows=834.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 51kB
+  Buffers: shared hit=3742
+  ->  HashAggregate  (cost=6278.21..6364.93 rows=2313 width=12) (actual time=12.042..12.217 rows=834.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 1  Memory Usage: 409kB
+        Rows Removed by Filter: 5220
+        Buffers: shared hit=3736
+        ->  Hash Join  (cost=1695.64..6243.52 rows=6938 width=4) (actual time=1.549..11.475 rows=6965.00 loops=1)
+              Hash Cond: (o.order_id = p.order_id)
+              Buffers: shared hit=3736
+              ->  Seq Scan on orders o  (cost=0.00..3916.00 rows=150000 width=12) (actual time=0.003..4.909 rows=150000.00 loops=1)
+                    Buffers: shared hit=2416
+              ->  Hash  (cost=1608.91..1608.91 rows=6938 width=8) (actual time=1.537..1.538 rows=6965.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 337kB
+                    Buffers: shared hit=1320
+                    ->  Bitmap Heap Scan on payments p  (cost=226.19..1608.91 rows=6938 width=8) (actual time=0.249..1.317 rows=6965.00 loops=1)
+                          Recheck Cond: ((payment_status)::text = 'FAILED'::text)
+                          Heap Blocks: exact=1276
+                          Buffers: shared hit=1320
+                          ->  Bitmap Index Scan on idx_payments_status_attempted_at  (cost=0.00..224.45 rows=6938 width=0) (actual time=0.183..0.183 rows=6965.00 loops=1)
+                                Index Cond: ((payment_status)::text = 'FAILED'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=44
+Planning:
+  Buffers: shared hit=367
+Planning Time: 0.573 ms
+Execution Time: 12.386 ms
+=== R17 run 3 ===
+Sort  (cost=6494.18..6499.96 rows=2313 width=12) (actual time=12.249..12.263 rows=834.00 loops=1)
+  Sort Key: (count(*)) DESC, o.customer_id
+  Sort Method: quicksort  Memory: 51kB
+  Buffers: shared hit=3742
+  ->  HashAggregate  (cost=6278.21..6364.93 rows=2313 width=12) (actual time=11.975..12.146 rows=834.00 loops=1)
+        Group Key: o.customer_id
+        Filter: (count(*) >= 2)
+        Batches: 1  Memory Usage: 409kB
+        Rows Removed by Filter: 5220
+        Buffers: shared hit=3736
+        ->  Hash Join  (cost=1695.64..6243.52 rows=6938 width=4) (actual time=1.540..11.426 rows=6965.00 loops=1)
+              Hash Cond: (o.order_id = p.order_id)
+              Buffers: shared hit=3736
+              ->  Seq Scan on orders o  (cost=0.00..3916.00 rows=150000 width=12) (actual time=0.003..4.965 rows=150000.00 loops=1)
+                    Buffers: shared hit=2416
+              ->  Hash  (cost=1608.91..1608.91 rows=6938 width=8) (actual time=1.528..1.529 rows=6965.00 loops=1)
+                    Buckets: 8192  Batches: 1  Memory Usage: 337kB
+                    Buffers: shared hit=1320
+                    ->  Bitmap Heap Scan on payments p  (cost=226.19..1608.91 rows=6938 width=8) (actual time=0.243..1.307 rows=6965.00 loops=1)
+                          Recheck Cond: ((payment_status)::text = 'FAILED'::text)
+                          Heap Blocks: exact=1276
+                          Buffers: shared hit=1320
+                          ->  Bitmap Index Scan on idx_payments_status_attempted_at  (cost=0.00..224.45 rows=6938 width=0) (actual time=0.178..0.178 rows=6965.00 loops=1)
+                                Index Cond: ((payment_status)::text = 'FAILED'::text)
+                                Index Searches: 1
+                                Buffers: shared hit=44
+Planning:
+  Buffers: shared hit=367
+Planning Time: 0.543 ms
+Execution Time: 12.311 ms

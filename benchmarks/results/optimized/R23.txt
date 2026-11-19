@@ -1,0 +1,30 @@
+=== R23 run 1 ===
+Limit  (cost=6772.88..6774.57 rows=25 width=40) (actual time=10.093..10.096 rows=25.00 loops=1)
+  Buffers: shared hit=1675 read=319
+  ->  Index Scan Backward using idx_orders_placed_at_customer_id on orders  (cost=0.42..10159.11 rows=150000 width=40) (actual time=0.009..8.502 rows=100025.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=1675 read=319
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.398 ms
+Execution Time: 10.108 ms
+=== R23 run 2 ===
+Limit  (cost=6772.88..6774.57 rows=25 width=40) (actual time=9.334..9.336 rows=25.00 loops=1)
+  Buffers: shared hit=1994
+  ->  Index Scan Backward using idx_orders_placed_at_customer_id on orders  (cost=0.42..10159.11 rows=150000 width=40) (actual time=0.007..7.753 rows=100025.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=1994
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.356 ms
+Execution Time: 9.346 ms
+=== R23 run 3 ===
+Limit  (cost=6772.88..6774.57 rows=25 width=40) (actual time=9.619..9.621 rows=25.00 loops=1)
+  Buffers: shared hit=1994
+  ->  Index Scan Backward using idx_orders_placed_at_customer_id on orders  (cost=0.42..10159.11 rows=150000 width=40) (actual time=0.007..8.037 rows=100025.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=1994
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.365 ms
+Execution Time: 9.632 ms

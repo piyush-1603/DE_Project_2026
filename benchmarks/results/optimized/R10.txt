@@ -1,0 +1,63 @@
+=== R10 run 1 ===
+Limit  (cost=2915.95..2916.20 rows=100 width=48) (actual time=0.939..0.944 rows=100.00 loops=1)
+  Buffers: shared hit=140 read=32
+  ->  Sort  (cost=2915.95..2922.96 rows=2806 width=48) (actual time=0.938..0.939 rows=100.00 loops=1)
+        Sort Key: ((delivered_at - placed_at)) DESC
+        Sort Method: top-N heapsort  Memory: 36kB
+        Buffers: shared hit=140 read=32
+        ->  Bitmap Heap Scan on orders  (cost=217.31..2808.71 rows=2806 width=48) (actual time=0.175..0.770 rows=2365.00 loops=1)
+              Recheck Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+              Rows Removed by Filter: 5876
+              Heap Blocks: exact=133
+              Buffers: shared hit=135 read=32
+              ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..216.61 rows=8419 width=0) (actual time=0.162..0.162 rows=8241.00 loops=1)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=2 read=32
+Planning:
+  Buffers: shared hit=275
+Planning Time: 0.405 ms
+Execution Time: 0.960 ms
+=== R10 run 2 ===
+Limit  (cost=2915.95..2916.20 rows=100 width=48) (actual time=0.780..0.785 rows=100.00 loops=1)
+  Buffers: shared hit=172
+  ->  Sort  (cost=2915.95..2922.96 rows=2806 width=48) (actual time=0.779..0.781 rows=100.00 loops=1)
+        Sort Key: ((delivered_at - placed_at)) DESC
+        Sort Method: top-N heapsort  Memory: 36kB
+        Buffers: shared hit=172
+        ->  Bitmap Heap Scan on orders  (cost=217.31..2808.71 rows=2806 width=48) (actual time=0.120..0.637 rows=2365.00 loops=1)
+              Recheck Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+              Rows Removed by Filter: 5876
+              Heap Blocks: exact=133
+              Buffers: shared hit=167
+              ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..216.61 rows=8419 width=0) (actual time=0.108..0.108 rows=8241.00 loops=1)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=34
+Planning:
+  Buffers: shared hit=275
+Planning Time: 0.394 ms
+Execution Time: 0.801 ms
+=== R10 run 3 ===
+Limit  (cost=2915.95..2916.20 rows=100 width=48) (actual time=0.912..0.922 rows=100.00 loops=1)
+  Buffers: shared hit=172
+  ->  Sort  (cost=2915.95..2922.96 rows=2806 width=48) (actual time=0.911..0.913 rows=100.00 loops=1)
+        Sort Key: ((delivered_at - placed_at)) DESC
+        Sort Method: top-N heapsort  Memory: 36kB
+        Buffers: shared hit=172
+        ->  Bitmap Heap Scan on orders  (cost=217.31..2808.71 rows=2806 width=48) (actual time=0.124..0.747 rows=2365.00 loops=1)
+              Recheck Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Filter: ((delivered_at - placed_at) > '01:00:00'::interval)
+              Rows Removed by Filter: 5876
+              Heap Blocks: exact=133
+              Buffers: shared hit=167
+              ->  Bitmap Index Scan on idx_orders_placed_at_customer_id  (cost=0.00..216.61 rows=8419 width=0) (actual time=0.113..0.113 rows=8241.00 loops=1)
+                    Index Cond: ((placed_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (placed_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=34
+Planning:
+  Buffers: shared hit=275
+Planning Time: 0.418 ms
+Execution Time: 0.939 ms
